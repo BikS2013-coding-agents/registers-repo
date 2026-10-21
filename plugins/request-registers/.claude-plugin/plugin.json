@@ -1,0 +1,8 @@
+{
+  "name": "request-registers",
+  "version": "0.1.0",
+  "description": "Every prompt logged as P-NNN and registered as a requirement, bug, working-process rule or other case; a turn cannot end before it is registered.",
+  "author": {
+    "name": "Giorgos Marinos"
+  }
+}

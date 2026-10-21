@@ -1,0 +1,21 @@
+{
+  "name": "registers",
+  "owner": {
+    "name": "Giorgos Marinos"
+  },
+  "metadata": {
+    "description": "Request registers for Claude Code: every prompt logged and registered before a turn can end",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "request-registers",
+      "description": "Every prompt logged as P-NNN and registered as a requirement, bug, working-process rule or other case; a turn cannot end before it is registered.",
+      "version": "0.1.0",
+      "source": "./plugins/request-registers",
+      "author": {
+        "name": "Giorgos Marinos"
+      }
+    }
+  ]
+}
