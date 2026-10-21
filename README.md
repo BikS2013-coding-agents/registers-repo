@@ -1,6 +1,6 @@
-# registers
+# registers-repo
 
-A Claude Code plugin marketplace. It holds one plugin, `request-registers`.
+The Claude Code plugin marketplace `registers`. It holds one plugin, `request-registers`.
 
 ## request-registers
 
@@ -35,18 +35,22 @@ What it does in a project that has one:
 ## Install
 
 ```bash
-claude plugin marketplace add BikS2013-coding-agents/registers
+claude plugin marketplace add BikS2013-coding-agents/registers-repo
 claude plugin install request-registers@registers
 ```
 
 The repository is private, so the account running these needs access to the
 `BikS2013-coding-agents` organization.
 
+The repository is named `registers-repo`, not `registers`, so its checkout never collides
+with the `registers/` folder the plugin keeps in each project, `~/coding-agents` included.
+The marketplace itself is still named `registers`, hence `request-registers@registers`.
+
 ## Developing
 
 The plugin is a Claude Code hooks module (`plugins/request-registers/hooks/register.ts`).
 On the development machine it is **not installed** from this marketplace. Instead,
-`~/.claude/skills/request-registers` is a symlink to `plugins/request-registers`, so Claude Code
+`~/.claude/skills/request-registers` is a symlink to `~/coding-agents/registers-repo/plugins/request-registers`, so Claude Code
 loads it straight from this checkout and reloads it on every save. Installing it as well
 would load it twice.
 
