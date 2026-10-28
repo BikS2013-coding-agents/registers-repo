@@ -9,9 +9,15 @@ import * as lib from './lib'
 
 type $ = EngineInterface
 
+// The nearest registers/ at or above the project root: a project nested in a workspace
+// that keeps the registers (~/coding-agents/<project> → ~/coding-agents/registers) is
+// covered too. Without this, a session started in the nested folder logged nothing.
 async function registersDir($: $): Promise<string | undefined> {
-  const dir = `${await $.session.root()}/registers`
-  return (await $.fs.exists(`${dir}/${lib.LOG}`)) ? dir : undefined
+  for (const base of lib.selfAndParents(await $.session.root())) {
+    const dir = `${base === '/' ? '' : base}/registers`
+    if (await $.fs.exists(`${dir}/${lib.LOG}`)) return dir
+  }
+  return undefined
 }
 
 async function readRegisters($: $, dir: string): Promise<lib.RegisterTexts> {
@@ -113,7 +119,7 @@ async function runCommand($: $, args: string): Promise<string> {
   const [verb = 'status'] = args.split(/\s+/).filter(Boolean)
   if (verb === 'init') return init($)
   const dir = await registersDir($)
-  if (!dir) return `No registers/${lib.LOG} under ${await $.session.root()}. Run /registers init to set them up.`
+  if (!dir) return `No registers/${lib.LOG} at or above ${await $.session.root()}. Run /registers init to set them up.`
 
   if (verb === 'status') {
     const state = await latest($, dir)

@@ -13,6 +13,18 @@ export type RegisterTexts = Record<(typeof REGISTERS)[number]['file'], string>
 
 export const LOG = 'prompt-log.md'
 
+/** The directory and each of its parents up to the filesystem root, nearest first. */
+export function selfAndParents(dir: string): string[] {
+  const dirs: string[] = []
+  let d = dir.length > 1 ? dir.replace(/\/+$/, '') : dir
+  for (;;) {
+    dirs.push(d)
+    if (d === '/' || d === '') return dirs
+    const cut = d.lastIndexOf('/')
+    d = cut <= 0 ? '/' : d.slice(0, cut)
+  }
+}
+
 /** P-NNN, three digits at least. */
 export function promptId(n: number): string {
   return `P-${String(n).padStart(3, '0')}`

@@ -85,3 +85,9 @@ test('the model is told the id and the time, and why a Stop is refused', () => {
   expect(Object.keys(lib.TEMPLATES).sort()).toEqual(
     ['README.md', 'bugs.md', 'other-cases.md', 'prompt-log.md', 'requirements.md', 'working-process.md'])
 })
+
+test('the project root and its parents, nearest first', () => {
+  expect(lib.selfAndParents('/Users/me/ws/project')).toEqual(['/Users/me/ws/project', '/Users/me/ws', '/Users/me', '/Users', '/'])
+  expect(lib.selfAndParents('/Users/me/ws/')).toEqual(['/Users/me/ws', '/Users/me', '/Users', '/'])
+  expect(lib.selfAndParents('/')).toEqual(['/'])
+})
